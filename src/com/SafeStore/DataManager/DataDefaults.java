@@ -1,5 +1,6 @@
 package com.SafeStore.DataManager;
 
+import java.nio.charset.MalformedInputException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

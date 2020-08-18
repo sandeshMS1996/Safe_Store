@@ -2,6 +2,7 @@ package com.SafeStore.DataManager;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,7 +38,7 @@ public class FileOperations {
 				}
 				retriveData(user).forEach(a->checkForDuplicate.put(a.split(",")[0], a.split(",")[1]));
 				writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-				if(checkForDuplicate.containsKey(data[0]) && checkForDuplicate.get(data[1]).equals(data[1])) {
+				if(checkForDuplicate.containsKey(data[0]) && checkForDuplicate.get(data[0]).equals(data[1])) {
 					System.out.println("[duplicate]: There already exist a entry for website \""
 							+ data[0] +"\" with username \"" + data[1] + "\"" );
 					System.out.println("              " + "Store request rejected..");
@@ -45,9 +46,17 @@ public class FileOperations {
 				}
 				writer.append(data[0] + "," + data[1] + "," + data[2]);
 				writer.newLine();
-			} catch (IOException e) {
+			}catch(MalformedInputException e) {
+				try {
+					System.out.println("your data file corrupted..");
+					Files.delete(file);
+				} catch (IOException e1) {
+				}
+			}
+			catch (IOException e) {
 				fileOperationError(e);
 			} catch(Exception e) {
+				if(DEBUG) e.printStackTrace();
 				System.out.println("Store request rejected due to Unexpected error");
 				System.out.println("please contact administrator for your Assistance");
 			}
@@ -76,7 +85,8 @@ public class FileOperations {
 			}
 		try {
 			List<String> sorted = Files.readAllLines(file);
-			Collections.sort(sorted, (a,b)->a.compareTo(b));
+			sorted.removeIf(a->a.split(",").length != 3);
+			sorted.sort((a,b)-> b.compareTo(a));
 			return sorted;
 		} catch (IOException e) {
 			fileOperationError(e);

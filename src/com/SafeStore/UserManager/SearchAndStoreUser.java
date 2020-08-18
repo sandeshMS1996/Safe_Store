@@ -20,13 +20,16 @@ class SearchAndStoreUser {
 		BufferedReader input =  null;
 		ZonedDateTime time = null; 
 		String line = null;
+		int c =0;
 		if(Files.notExists(p)) 
 			fileOperationError();
 		try {
 			input = Files.newBufferedReader(p);
 			while((line= input.readLine()) != null) {
+				//System.out.println(line);
 				String[] values = line.split(",");
-				if(values[2].equals(email)) {
+				if(values.length != 5) continue;
+				if(values[2].equalsIgnoreCase(email)) {
 					//System.out.println(values[4]);
 					try {
 						time = ZonedDateTime.parse(values[4]).withZoneSameInstant(DEFAULT_TIME_ZONE);
@@ -34,11 +37,12 @@ class SearchAndStoreUser {
 						time= null;
 					}
 
-					return new UserData(values[0],null,values[2],values[3], false, time);
+					return new UserData(values[0],null,values[2].toLowerCase(),values[3], false, time);
 				}
 			}
 
-		}catch(IOException e) {
+		}
+		catch(IOException e) {
 			fileOperationError(e);
 		}finally {
 			try {
@@ -61,18 +65,17 @@ class SearchAndStoreUser {
 			fileOperationError();
 		try {	
 			userOutput = Files.newBufferedWriter(userFile, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-			u = user.getFirstName() + "," + user.getLastName() + "," + user.getEmail() + 
-					"," + user.getPassword() + "," + user.getLastLoginDateTime()+"\n";
+			u = user.getFirstName() + "," + user.getLastName() + "," + user.getEmail().toLowerCase() + 
+					"," + user.getPassword() + "," + user.getLastLoginDateTime();
 			userOutput.append(u);
+			userOutput.newLine();
 			createUserFile(user.getEmail());
-			if(DEBUG) System.out.println("user details has been stored to the Database");
+			System.out.println("user details has been stored to the Database");
 			return true;
 		} catch (IOException e) {
-			removeUser(user.getEmail());
-			fileOperationError(e);
+			fileOperationError();
 		}catch (Exception e) {
-			removeUser(user.getEmail());
-			return false;
+			fileOperationError(e);
 		}
 		finally {
 			try {
@@ -91,7 +94,6 @@ class SearchAndStoreUser {
 	private static void createUserFile(String email) {
 		String fileName = USER_DATA_PATH + email+"_storedPasswords.txt";
 		Path filePath =  Paths.get(fileName);
-		System.out.println(Files.exists(filePath));
 		try {
 		if(Files.notExists(filePath)) {
 				Files.createFile(filePath);

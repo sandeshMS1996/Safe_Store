@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public interface UserDefaults  {
 	boolean DEBUG = true;
 	
-	String USER_DETAILS_FILENAME =  "UserDetails.txt";
+	String USER_DETAILS_FILENAME =  "UserDetails.data";
 	
 	String WELCOME_FILENAME = "Welcome.txt";
 	

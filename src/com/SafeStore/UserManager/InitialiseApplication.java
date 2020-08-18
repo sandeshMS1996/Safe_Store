@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
 public final class InitialiseApplication   {
 	private static boolean isFirstRun = true;
 	private static String welcomeString = ""; 
