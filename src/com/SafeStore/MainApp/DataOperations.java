@@ -4,8 +4,10 @@ package com.SafeStore.MainApp;
 import static com.SafeStore.DataManager.DataDefaults.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.SafeStore.DataManager.AcceptData;
 import com.SafeStore.DataManager.FileOperations;
@@ -28,8 +30,9 @@ public class DataOperations {
 					System.out.println("[Note] Application cannot store data that contains \",\" due to design limitations..");
 					System.out.println("       System will reject data that contains \",\" in it...");
 					System.out.println("******************************************************");
-					System.out.println("Please select from the below options..\n");
+					//System.out.println("Please select from the below options..\n");
 					while(true) {
+						System.out.println("\nPlease select from below options..\n");
 						System.out.println("1. store Credencials");
 						System.out.println("2. Search stored Credencials");
 						System.out.println("3. Display all Credencials");
@@ -55,30 +58,35 @@ public class DataOperations {
 					searchString = acceptInputAsString(scanner);
 					
 					boolean found = false;
+					boolean first = true;
 					List<String> matches = new ArrayList<String>();
 					String[] vals = null;
 					for(String a :FileOperations.retriveData(data)) {
 						vals  = a.split(",");
 						if(vals[0].equalsIgnoreCase(searchString)) {
 							found = true;
-							System.out.println("Matching Website found ");
+							if(first) {
+								System.out.println("Matching Website found ");
+								first = false;
+							}
 							System.out.println(vals[0] + "->");
 							System.out.println("\tUsername: " + vals[1] + "\n\tPassword: " + vals[2]);
 							//break;
 						}
 						else matches.add(vals[0]);
 					}
+					first = true;
 					//System.out.println(matches.toString());	
 					if(!found) {
-							System.out.println("No passowrd found for the searchString " + searchString);
-							String relate = "";
+							System.out.println("No passowrd found for the Website \"" + searchString + "\"");
+							Set<String> relate = new HashSet<String>();
 							for(String i : matches) {
 								if(i.substring(0,1).equalsIgnoreCase(searchString.substring(0, 1))) 
-									relate += "-\t" + i + "\n";
+									relate.add(i);
 							}
-							if(!relate.equals("")) {
+							if(!relate.isEmpty()) {
 								System.out.println("You may be looking for..");
-								System.out.println(relate);
+								relate.forEach(a->System.out.println("\t-" + a ));
 							}
 						}
 						break;

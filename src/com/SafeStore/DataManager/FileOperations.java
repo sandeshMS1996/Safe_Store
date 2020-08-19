@@ -46,12 +46,8 @@ public class FileOperations {
 				}
 				writer.append(data[0] + "," + data[1] + "," + data[2]);
 				writer.newLine();
-			}catch(MalformedInputException e) {
-				try {
-					System.out.println("your data file corrupted..");
-					Files.delete(file);
-				} catch (IOException e1) {
-				}
+				System.out.println("");
+				System.out.println("Your details have been Successfuly stored to a file");
 			}
 			catch (IOException e) {
 				fileOperationError(e);

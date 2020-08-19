@@ -41,13 +41,15 @@ public final class InitialiseApplication   {
 			try {	
 				Files.readAllLines(welcomePath).forEach(a-> welcomeString+= a + "\n");
 			}
-			catch (IOException e) {
+			catch (Exception e) {
 				if(DEBUG)
 					e.printStackTrace();
-				welcomeString = "**************************\n" 
-						+   "Welcome to myLocker\n"
-						+   "Developer: Sandesh MS\n"
-						+ 	"**************************\n";
+				welcomeString = "******************************************\n" +
+						"Application: SAFE STORE\n" +
+						"USer Interactions: Console\n" +               
+						"Developer: Sandesh MS\n" +	
+						"*****************************************";
+
 			}
 			System.out.println(welcomeString);
 		}
