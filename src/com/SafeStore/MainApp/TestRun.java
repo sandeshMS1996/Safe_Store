@@ -6,13 +6,8 @@ import java.util.Scanner;
 import com.SafeStore.UserManager.*;
 public class TestRun {
 	public static void main(String[] args) throws FileNotFoundException {
-		//File file = new File("testData.txt");
 		Scanner scanner = new Scanner(System.in);
-		//if(scanner.hasNextLine()) scanner.nextLine();
 		InitialiseApplication.Welcome();
-		//System.out.println("press any Key to continue...");
-		//System.out.println(scanner.hasNextInt());
-		//String c = "";
 		int ch =0;
 		System.out.println("Please choose from the below options..\n");
 		while(true) {

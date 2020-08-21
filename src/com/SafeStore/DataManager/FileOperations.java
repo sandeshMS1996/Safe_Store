@@ -81,8 +81,10 @@ public class FileOperations {
 			}
 		try {
 			List<String> sorted = Files.readAllLines(file);
+			//System.out.println(sorted);
 			sorted.removeIf(a->a.split(",").length != 3);
-			sorted.sort((a,b)-> b.compareTo(a));
+			Collections.sort(sorted, (a,b)-> a.split(",")[0].compareTo(b.split(",")[0]));
+			Sort.quickSort(sorted);
 			return sorted;
 		} catch (IOException e) {
 			fileOperationError(e);

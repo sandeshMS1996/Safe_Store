@@ -4,6 +4,7 @@ package com.SafeStore.MainApp;
 import static com.SafeStore.DataManager.DataDefaults.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -32,6 +33,7 @@ public class DataOperations {
 					System.out.println("******************************************************");
 					//System.out.println("Please select from the below options..\n");
 					while(true) {
+						System.out.println("----------------------------------");
 						System.out.println("\nPlease select from below options..\n");
 						System.out.println("1. store Credencials");
 						System.out.println("2. Search stored Credencials");
@@ -63,7 +65,7 @@ public class DataOperations {
 					String[] vals = null;
 					for(String a :FileOperations.retriveData(data)) {
 						vals  = a.split(",");
-						if(vals[0].equalsIgnoreCase(searchString)) {
+						if(vals[0].equals(searchString)) {
 							found = true;
 							if(first) {
 								System.out.println("Matching Website found ");
@@ -98,6 +100,7 @@ public class DataOperations {
 						credencials =  null;
 						break;
 					}
+					//Collections.sort(credencials, (a,b)->a.split(",")[0].compareTo(b.split(",")[0]));
 					for(String a :credencials) {
 						String[] vals = a.split(","); 
 						System.out.println(vals[0] + ": ");

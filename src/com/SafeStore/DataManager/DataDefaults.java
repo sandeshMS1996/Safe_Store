@@ -1,6 +1,6 @@
 package com.SafeStore.DataManager;
 
-import java.nio.charset.MalformedInputException;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,7 +28,7 @@ public interface DataDefaults extends UserDefaults {
 				ch = Integer.parseInt(c);
 				break; 
 		} catch (NumberFormatException e) {
-			System.out.println("Please enter the correct choice..\n" + c);
+			System.out.println("Please enter the correct choice..\n" );
 		}
 	}
 		return ch;	

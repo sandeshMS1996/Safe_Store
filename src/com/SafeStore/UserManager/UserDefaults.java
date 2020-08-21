@@ -11,7 +11,7 @@ public interface UserDefaults  {
 	
 	String WELCOME_FILENAME = "Welcome.txt";
 	
-	String FIRST_NAME_PATTERN = "[a-zA-Z]{6,}";
+	String FIRST_NAME_PATTERN = "[a-zA-Z]{4,}";
 	
 	String LAST_NAME_PATTERN = "[a-zA-Z]{2,}";
 	
