@@ -2,7 +2,6 @@ package com.SafeStore.DataManager;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -83,8 +82,8 @@ public class FileOperations {
 			List<String> sorted = Files.readAllLines(file);
 			//System.out.println(sorted);
 			sorted.removeIf(a->a.split(",").length != 3);
-			Collections.sort(sorted, (a,b)-> a.split(",")[0].compareTo(b.split(",")[0]));
-			Sort.quickSort(sorted);
+			//Collections.sort(sorted, (a,b)-> a.split(",")[0].compareTo(b.split(",")[0]));
+			Sort.selectionSort(sorted);
 			return sorted;
 		} catch (IOException e) {
 			fileOperationError(e);

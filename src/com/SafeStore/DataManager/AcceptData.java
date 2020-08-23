@@ -2,7 +2,6 @@ package com.SafeStore.DataManager;
 
 import static com.SafeStore.DataManager.DataDefaults.*;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class AcceptData {

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public interface UserDefaults  {
+	
 	boolean DEBUG = false;
 	
 	String USER_DETAILS_FILENAME =  "UserDetails.data";

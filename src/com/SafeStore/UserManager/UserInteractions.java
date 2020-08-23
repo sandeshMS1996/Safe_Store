@@ -2,7 +2,6 @@ package com.SafeStore.UserManager;
 
 import static com.SafeStore.UserManager.UserDefaults.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Scanner;

@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -46,20 +45,18 @@ public class UserRegistractionAndLogin {
 	 * @return true if login successful else false
 	 * @throws CommaException 
 	 */
-
 	public static UserData Login(Scanner scanner, UserData user)  {
-		//UserData user;
-		//user = UserInteractions.forLogin(scanner); 
+		
 		UserData validate = SearchAndStoreUser.searchUserbyEmail(user.getEmail());
-		//System.out.println(validate);
+
 		if(validate != null && user.getPassword().equals(validate.getPassword())) {
 			System.out.println("Login Success for user \"" + validate.getEmail() + "\"");
-			//System.out.println(validate.getLastLoginDateTime());
+
 			if(validate.getLastLoginDateTime() != null) {
 				System.out.println("last login: " + (validate.getLastLoginDateTime().format(
 						DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT))));
-				Duration d = Duration.between(validate.getLastLoginDateTime(), 
-					ZonedDateTime.of(LocalDateTime.now(), DEFAULT_TIME_ZONE));
+				//Duration d = Duration.between(validate.getLastLoginDateTime(), 
+				//	ZonedDateTime.of(LocalDateTime.now(), DEFAULT_TIME_ZONE));
 				//if(d.toMinutes() > 10)
 				//	System.out.println("it's been " + d.toMinutes() + " minutes since you login");
 			}
@@ -72,6 +69,10 @@ public class UserRegistractionAndLogin {
 		return null;
 	}
 
+	/**
+	 * Updates Last login time for the calling user to current system time
+	 * an set the userData object created during login to null
+	 */
 	public static void logoff(UserData data) {
 	Path userFile =  null;
 	List<String> lines =  null;

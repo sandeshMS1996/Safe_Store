@@ -15,12 +15,17 @@ import java.nio.file.StandardOpenOption;
 import java.time.ZonedDateTime;
 
 class SearchAndStoreUser {
+	
+	/**
+	 * returns an object of they UserData if email being searched is found
+	 * else returns null
+	 */
 	public static UserData searchUserbyEmail(String email) {
 		Path p = Paths.get(USER_DETAILS_FILENAME);
 		BufferedReader input =  null;
 		ZonedDateTime time = null; 
 		String line = null;
-		int c =0;
+		
 		if(Files.notExists(p)) 
 			fileOperationError();
 		try {
@@ -56,7 +61,10 @@ class SearchAndStoreUser {
 		return null;
 	}
 
-
+	/**
+	 * After user registers, his details would be stored using this method.
+	 * returns false if it could not store 
+	 */
 	static boolean StoreUser(UserData user) {
 		Path userFile = Paths.get(USER_DETAILS_FILENAME);
 		BufferedWriter userOutput = null;
@@ -91,6 +99,10 @@ class SearchAndStoreUser {
 		return false;	
 	}
 
+	/**
+	 * if Registration successful, a unique data file would be created for storing credentials.
+	 * 
+	 */
 	private static void createUserFile(String email) {
 		String fileName = USER_DATA_PATH + email+"_storedPasswords.txt";
 		Path filePath =  Paths.get(fileName);
